@@ -2,6 +2,7 @@ package com.example.social_network01.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -16,15 +17,16 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @Past
     private LocalDateTime createdWhen;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String textToComm;
+    @Column(nullable = false)
+    private String text;
     private Long answerToComm;
-    private Long image;
 
     public Long getId() {
         return id;
@@ -59,11 +61,11 @@ public class Comment {
     }
 
     public String getTextToComm() {
-        return textToComm;
+        return text;
     }
 
     public void setTextToComm(String textToComm) {
-        this.textToComm = textToComm;
+        this.text = textToComm;
     }
 
     public Long getAnswerToComm() {
@@ -72,13 +74,5 @@ public class Comment {
 
     public void setAnswerToComm(Long answerToComm) {
         this.answerToComm = answerToComm;
-    }
-
-    public Long getImage() {
-        return image;
-    }
-
-    public void setImage(Long image) {
-        this.image = image;
     }
 }
